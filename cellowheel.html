@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cello Repertoire Spinner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #4a2c17 url('https://www.transparenttextures.com/patterns/dark-wood.png');
+      background-size: cover;
+      color: #f3e6d0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2em;
+    }
+
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+      background-color: #5b3a1c;
+      color: #fff4e0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #wheelContainer {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    #wheelCanvas {
+      border: 5px solid #8b5e3c;
+      border-radius: 50%;
+      background: #4e342e;
+    }
+
+    #arrow {
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 30px solid #ffc107;
+    }
+
+    #resultModal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #3e2a1a;
+      color: #fff4e0;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #000;
+      display: none;
+      z-index: 999;
+      text-align: center;
+      max-width: 80%;
+    }
+
+    #closeBtn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #8b5e3c;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎻 Cello Repertoire Spinner 🎻</h1>
+  <label for="experience">Years of Experience:</label>
+  <select id="experience"></select>
+  <button onclick="prepareWheel()">Load Repertoire</button>
+  <div id="wheelContainer">
+    <canvas id="wheelCanvas" width="400" height="400"></canvas>
+    <div id="arrow"></div>
+  </div>
+  <button onclick="spinWheel()">🎯 Spin the Wheel</button>
+
+  <div id="resultModal">
+    <div id="result"></div>
+    <button id="closeBtn" onclick="closeModal()">Close</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    const resultDiv = document.getElementById('result');
+    const resultModal = document.getElementById('resultModal');
+    const experienceSelect = document.getElementById('experience');
+    let pieces = [];
+    let angle = 0;
+    let spinning = false;
+
+    // Fill experience options
+    for (let i = 0; i <= 15; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i;
+      experienceSelect.appendChild(option);
+    }
+
+    const allPieces = [
+      {
+        level: 0,
+        options: [
+          { name: "Twinkle Variations - Suzuki", link: "https://www.youtube.com/watch?v=akKZi8AJBrw" },
+          { name: "French Folk Song - Traditional", link: "https://www.youtube.com/watch?v=s6vV7MQ6kQg" },
+          { name: "Lightly Row - Folk", link: "https://www.youtube.com/watch?v=Yg3WnkDsvac" },
+          { name: "Go Tell Aunt Rhody", link: "https://www.youtube.com/watch?v=Fy2HzrLQZGc" },
+          { name: "Song of the Wind", link: "https://www.youtube.com/watch?v=4S3YO3lsGE8" },
+          { name: "May Song", link: "https://www.youtube.com/watch?v=_1opYBjZJw8" },
+          { name: "O Come Little Children", link: "https://www.youtube.com/watch?v=VWQjNWIQwBk" }
+        ]
+      },
+      {
+        level: 2,
+        options: [
+          { name: "Minuet No. 2 - Bach", link: "https://www.youtube.com/watch?v=_nAf8TTN_gY" },
+          { name: "Chorus from Judas Maccabaeus - Handel", link: "https://www.youtube.com/watch?v=aMfUrfFnbBA" },
+          { name: "Rigadoon - Purcell", link: "https://www.youtube.com/watch?v=9SCaoZlnz-I" },
+          { name: "Sonata in C - Breval", link: "https://www.youtube.com/watch?v=iLbHKqLD1M4" },
+          { name: "Sonata in G - Marcello", link: "https://www.youtube.com/watch?v=MIIfryLhTf0" },
+          { name: "Etude in C - Dotzauer", link: "https://www.youtube.com/watch?v=wt-DXYW7P9E" },
+          { name: "Etude Op. 76 No. 2 - Popper", link: "https://www.youtube.com/watch?v=nK6pHO8Uysc" }
+        ]
+      },
+      {
+        level: 4,
+        options: [
+          { name: "Tarantella - Squire", link: "https://www.youtube.com/watch?v=Mi_mO3zGUcU" },
+          { name: "Swan - Saint-Saëns", link: "https://www.youtube.com/watch?v=R9g3sR1Y3W4" },
+          { name: "Concerto in D Minor - Lalo", link: "https://www.youtube.com/watch?v=2Yy6qE7IIdw" },
+          { name: "Concerto in C - Haydn", link: "https://www.youtube.com/watch?v=QoJqzHGkuiw" },
+          { name: "Concerto in B Minor - Dvorak", link: "https://www.youtube.com/watch?v=ybHa2H3vPMo" },
+          { name: "Kol Nidrei - Bruch", link: "https://www.youtube.com/watch?v=w8WyZ8ZVJDg" },
+          { name: "Etude Op. 73 - Popper", link: "https://www.youtube.com/watch?v=sW6ayRAzSHw" }
+        ]
+      }
+    ];
+
+    function getRepertoire(level) {
+      const matched = allPieces.slice().reverse().find(entry => level >= entry.level);
+      return matched ? matched.options : [];
+    }
+
+    function prepareWheel() {
+      const level = parseInt(experienceSelect.value);
+      pieces = getRepertoire(level);
+      drawWheel();
+    }
+
+    function drawWheel() {
+      ctx.clearRect(0, 0, 400, 400);
+      const colors = ['#b58763','#8d6e63','#a1887f','#6d4c41','#795548','#d7ccc8','#bcaaa4'];
+      const segmentAngle = (2 * Math.PI) / pieces.length;
+
+      for (let i = 0; i < pieces.length; i++) {
+        ctx.beginPath();
+        ctx.moveTo(200, 200);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.arc(200, 200, 200, i * segmentAngle, (i + 1) * segmentAngle);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(200, 200);
+        ctx.rotate(i * segmentAngle + segmentAngle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#fff8f0";
+        ctx.font = "13px Georgia";
+        ctx.fillText(pieces[i].name, 190, 0);
+        ctx.restore();
+      }
+    }
+
+    function spinWheel() {
+      if (spinning || pieces.length === 0) return;
+      spinning = true;
+      const spinDuration = 3000;
+      const spins = Math.random() * 10 + 10;
+      const finalAngle = spins * 2 * Math.PI + Math.random() * 2 * Math.PI;
+      const startTime = performance.now();
+
+      function animate(time) {
+        const elapsed = time - startTime;
+        if (elapsed < spinDuration) {
+          const progress = elapsed / spinDuration;
+          angle = finalAngle * easeOutCubic(progress);
+          renderSpin();
+          requestAnimationFrame(animate);
+        } else {
+          angle = finalAngle;
+          renderSpin();
+          showResult();
+          spinning = false;
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function renderSpin() {
+      ctx.save();
+      ctx.clearRect(0, 0, 400, 400);
+      ctx.translate(200, 200);
+      ctx.rotate(angle);
+      ctx.translate(-200, -200);
+      drawWheel();
+      ctx.restore();
+    }
+
+    function showResult() {
+      const segmentAngle = (2 * Math.PI) / pieces.length;
+      const selected = Math.floor(((2 * Math.PI - (angle % (2 * Math.PI))) % (2 * Math.PI)) / segmentAngle);
+      const piece = pieces[selected];
+      const messages = [
+        "You’re ready to master this masterpiece!",
+        "Time to make music magic!",
+        "Practice makes perfect 🎻",
+        "Your cello journey just got more exciting!",
+        "Bravo! Let’s get started."
+      ];
+      const message = messages[Math.floor(Math.random() * messages.length)];
+      resultDiv.innerHTML = `<strong>${piece.name}</strong><br><a href="${piece.link}" target="_blank">🎧 Listen or Learn</a><br><em>${message}</em>`;
+      resultModal.style.display = 'block';
+    }
+
+    function closeModal() {
+      resultModal.style.display = 'none';
+    }
+
+    prepareWheel();
+  </script>
+</body>
+</html>
