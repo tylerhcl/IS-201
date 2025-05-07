@@ -6,53 +6,82 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Georgia', serif;
-      background: #4a2c17 url('https://www.transparenttextures.com/patterns/dark-wood.png');
-      background-size: cover;
-      color: #f3e6d0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: linear-gradient(180deg, #f0f2f5, #d9dee3);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      width: 100%;
+      padding: 20px;
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    main {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      padding: 20px;
+      width: 100%;
+      max-width: 800px;
     }
 
     h1 {
-      margin-top: 20px;
-      font-size: 2em;
+      margin: 10px 0;
+      font-size: 2.2em;
+      font-weight: 600;
     }
 
     select, button {
-      padding: 10px;
+      padding: 12px 20px;
       margin: 10px;
       font-size: 1rem;
-      background-color: #5b3a1c;
-      color: #fff4e0;
+      background-color: #34495e;
+      color: #ecf0f1;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover, select:hover {
+      background-color: #3e556e;
+      transform: translateY(-2px);
+      cursor: pointer;
     }
 
     #wheelContainer {
       position: relative;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     #wheelCanvas {
-      border: 5px solid #8b5e3c;
+      border: 8px solid #2c3e50;
       border-radius: 50%;
-      background: #4e342e;
+      background: white;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     #arrow {
       position: absolute;
       top: 50%;
-      right: -30px;
+      right: -45px;
       transform: translateY(-50%);
       width: 0;
       height: 0;
-      border-top: 20px solid transparent;
-      border-bottom: 20px solid transparent;
-      border-left: 30px solid #ffc107;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-left: 35px solid #e67e22;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
     #resultModal {
@@ -60,38 +89,55 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #3e2a1a;
-      color: #fff4e0;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #000;
+      background: #ffffff;
+      color: #2c3e50;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       display: none;
       z-index: 999;
       text-align: center;
-      max-width: 80%;
+      max-width: 90%;
     }
 
     #closeBtn {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background: #8b5e3c;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #34495e;
       border: none;
-      border-radius: 5px;
-      color: white;
+      border-radius: 8px;
+      color: #ecf0f1;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
       cursor: pointer;
+    }
+
+    #closeBtn:hover {
+      background: #3e556e;
     }
   </style>
 </head>
 <body>
-  <h1>🎻 Cello Repertoire Spinner 🎻</h1>
-  <label for="experience">Years of Experience:</label>
-  <select id="experience"></select>
-  <button onclick="prepareWheel()">Load Repertoire</button>
-  <div id="wheelContainer">
-    <canvas id="wheelCanvas" width="400" height="400"></canvas>
-    <div id="arrow"></div>
-  </div>
-  <button onclick="spinWheel()">🎯 Spin the Wheel</button>
+  <header>
+    <h1>Cello Repertoire Spinner</h1>
+    <p>Select your level and let inspiration spin!</p>
+  </header>
+
+  <main>
+    <label for="experience">Years of Experience:</label>
+    <select id="experience"></select>
+    <button onclick="prepareWheel()">Load Repertoire</button>
+    <div id="wheelContainer">
+      <canvas id="wheelCanvas" width="400" height="400"></canvas>
+      <div id="arrow"></div>
+    </div>
+    <button onclick="spinWheel()">🎯 Spin the Wheel</button>
+  </main>
+
+  <footer>
+    <p>&copy; Head to my website: &middot; <a href="index.html">Tyler Teaches</a></p>
+  </footer>
 
   <div id="resultModal">
     <div id="result"></div>
@@ -108,7 +154,6 @@
     let angle = 0;
     let spinning = false;
 
-    // Fill experience options
     for (let i = 0; i <= 15; i++) {
       const option = document.createElement('option');
       option.value = i;
@@ -117,42 +162,10 @@
     }
 
     const allPieces = [
-      {
-        level: 0,
-        options: [
-          { name: "Twinkle Variations - Suzuki", link: "https://www.youtube.com/watch?v=akKZi8AJBrw" },
-          { name: "French Folk Song - Traditional", link: "https://www.youtube.com/watch?v=s6vV7MQ6kQg" },
-          { name: "Lightly Row - Folk", link: "https://www.youtube.com/watch?v=Yg3WnkDsvac" },
-          { name: "Go Tell Aunt Rhody", link: "https://www.youtube.com/watch?v=Fy2HzrLQZGc" },
-          { name: "Song of the Wind", link: "https://www.youtube.com/watch?v=4S3YO3lsGE8" },
-          { name: "May Song", link: "https://www.youtube.com/watch?v=_1opYBjZJw8" },
-          { name: "O Come Little Children", link: "https://www.youtube.com/watch?v=VWQjNWIQwBk" }
-        ]
-      },
-      {
-        level: 2,
-        options: [
-          { name: "Minuet No. 2 - Bach", link: "https://www.youtube.com/watch?v=_nAf8TTN_gY" },
-          { name: "Chorus from Judas Maccabaeus - Handel", link: "https://www.youtube.com/watch?v=aMfUrfFnbBA" },
-          { name: "Rigadoon - Purcell", link: "https://www.youtube.com/watch?v=9SCaoZlnz-I" },
-          { name: "Sonata in C - Breval", link: "https://www.youtube.com/watch?v=iLbHKqLD1M4" },
-          { name: "Sonata in G - Marcello", link: "https://www.youtube.com/watch?v=MIIfryLhTf0" },
-          { name: "Etude in C - Dotzauer", link: "https://www.youtube.com/watch?v=wt-DXYW7P9E" },
-          { name: "Etude Op. 76 No. 2 - Popper", link: "https://www.youtube.com/watch?v=nK6pHO8Uysc" }
-        ]
-      },
-      {
-        level: 4,
-        options: [
-          { name: "Tarantella - Squire", link: "https://www.youtube.com/watch?v=Mi_mO3zGUcU" },
-          { name: "Swan - Saint-Saëns", link: "https://www.youtube.com/watch?v=R9g3sR1Y3W4" },
-          { name: "Concerto in D Minor - Lalo", link: "https://www.youtube.com/watch?v=2Yy6qE7IIdw" },
-          { name: "Concerto in C - Haydn", link: "https://www.youtube.com/watch?v=QoJqzHGkuiw" },
-          { name: "Concerto in B Minor - Dvorak", link: "https://www.youtube.com/watch?v=ybHa2H3vPMo" },
-          { name: "Kol Nidrei - Bruch", link: "https://www.youtube.com/watch?v=w8WyZ8ZVJDg" },
-          { name: "Etude Op. 73 - Popper", link: "https://www.youtube.com/watch?v=sW6ayRAzSHw" }
-        ]
-      }
+      { level: 0, options: ["Twinkle Variations", "French Folk Song", "Lightly Row", "Go Tell Aunt Rhody", "Song of the Wind", "O Come Little Children", "Long Long Ago"] },
+      { level: 2, options: ["Minuet in G - Bach", "Chorus from Judas Maccabaeus - Handel", "Sonata in C - Breval", "Sonata in G - Marcello", "Etude in C - Dotzauer", "Hunter's Chorus - Weber"] },
+      { level: 4, options: ["Swan - Saint-Saëns", "Concerto in D Minor - Lalo", "Concerto in C - Haydn", "Kol Nidrei - Bruch", "Schelomo - Bloch", "Elegy - Fauré"] },
+      { level: 6, options: ["Rococo Variations - Tchaikovsky", "Concerto in B Minor - Dvorak", "Cello Suites - Bach", "Sinfonia Concertante - Prokofiev", "Sonata in E Minor - Brahms"] }
     ];
 
     function getRepertoire(level) {
@@ -168,7 +181,7 @@
 
     function drawWheel() {
       ctx.clearRect(0, 0, 400, 400);
-      const colors = ['#b58763','#8d6e63','#a1887f','#6d4c41','#795548','#d7ccc8','#bcaaa4'];
+      const colors = ['#7f8c8d', '#95a5a6', '#bdc3c7', '#ecf0f1', '#d0d3d4'];
       const segmentAngle = (2 * Math.PI) / pieces.length;
 
       for (let i = 0; i < pieces.length; i++) {
@@ -181,9 +194,9 @@
         ctx.translate(200, 200);
         ctx.rotate(i * segmentAngle + segmentAngle / 2);
         ctx.textAlign = "right";
-        ctx.fillStyle = "#fff8f0";
-        ctx.font = "13px Georgia";
-        ctx.fillText(pieces[i].name, 190, 0);
+        ctx.fillStyle = "#2c3e50";
+        ctx.font = "14px -apple-system, BlinkMacSystemFont, 'Segoe UI'";
+        ctx.fillText(pieces[i], 190, 0);
         ctx.restore();
       }
     }
@@ -240,7 +253,7 @@
         "Bravo! Let’s get started."
       ];
       const message = messages[Math.floor(Math.random() * messages.length)];
-      resultDiv.innerHTML = `<strong>${piece.name}</strong><br><a href="${piece.link}" target="_blank">🎧 Listen or Learn</a><br><em>${message}</em>`;
+      resultDiv.innerHTML = `<strong>${piece}</strong><br><em>${message}</em>`;
       resultModal.style.display = 'block';
     }
 
