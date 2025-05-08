@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content />
-    <meta name="author" content />
     <title>Cello Lessons with Tyler</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +11,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <style>
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        .form-section {
+            flex: 1 1 600px;
+            max-width: 700px;
+        }
+        .faq-sidebar {
+            flex: 0 1 300px;
+        }
+        .accordion-button {
+            font-weight: 600;
+        }
         .form-shadow {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -21,7 +35,7 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            padding-bottom: 150%; /* aspect ratio placeholder */
+            padding-bottom: 150%;
             height: 0;
         }
         .iframe-container iframe {
@@ -35,107 +49,196 @@
     </style>
 </head>
 <body class="d-flex flex-column">
-    <main class="flex-shrink-0">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-            <div class="container px-5">
-                <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Tyler Teaches</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
-                        <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page content-->
-        <section class="py-5">
-            <div class="container px-5">
-                <div class="row g-4">
-                    <div class="col-lg-4 col-12">
-                        <h4 class="mb-3">FAQs</h4>
-                        <div class="accordion" id="faqAccordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq1-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
-                                        Question 1
-                                    </button>
-                                </h2>
-                                <div id="faq1" class="accordion-collapse collapse" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Placeholder answer text for question 1.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq2-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                        Question 2
-                                    </button>
-                                </h2>
-                                <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Placeholder answer text for question 2.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq3-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                        Question 3
-                                    </button>
-                                </h2>
-                                <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Placeholder answer text for question 3.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faq4-heading">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                        Question 4
-                                    </button>
-                                </h2>
-                                <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        Placeholder answer text for question 4.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-12">
-                        <div class="form-shadow">
-                            <div class="iframe-container">
-                                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc5fetBpac1WZkE9wR1eVTFb4sLFYY4_6DRgyZWRG2CtiSZZA/viewform?embedded=true">Loading…</iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <!-- Footer-->
-    <footer class="bg-white py-4 mt-auto">
+<main class="flex-shrink-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto"><div class="small m-0">Copyright &copy; Your Website 2023</div></div>
-                <div class="col-auto">
-                    <a class="small" href="#!">Privacy</a>
-                    <span class="mx-1">&middot;</span>
-                    <a class="small" href="#!">Terms</a>
-                    <span class="mx-1">&middot;</span>
-                    <a class="small" href="#!">Contact</a>
+            <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Tyler Teaches</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5">
+        <div class="container px-5 content-section">
+            <div class="form-section form-shadow">
+                <div class="iframe-container">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc5fetBpac1WZkE9wR1eVTFb4sLFYY4_6DRgyZWRG2CtiSZZA/viewform?embedded=true">Loading…</iframe>
+                </div>
+            </div>
+
+            <div class="faq-sidebar">
+                <h4 class="mb-3">FAQs</h4>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq1-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                What experience level do you teach?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I work with middle school–age students and up, from beginners to advanced players. Lessons are tailored to meet your goals.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq2-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                Where and how are lessons held?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I offer in-person lessons only and can travel to students’ homes for convenience.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq3-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                Do you help with auditions or competitions?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! I help students prepare for auditions, competitions, and recitals by guiding repertoire, refining technique, and building confidence.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq4-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                What lesson packages and rates do you offer?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I use a punch pass system: $129 for 4 lessons, $179 for 6, and $219 for 8. Each lesson is usually 30 minutes, with 1-hour options upon request.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq5-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                How do cancellations or rescheduling work?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" aria-labelledby="faq5-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Just text me as soon as possible! The punch pass system is designed for flexibility so you can easily adjust summer plans.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq6-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                What payment methods do you accept?
+                            </button>
+                        </h2>
+                        <div id="faq6" class="accordion-collapse collapse" aria-labelledby="faq6-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                I accept most forms of payment, with a preference for online methods like Zelle and Venmo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq7-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
+                                What’s your teaching style?
+                            </button>
+                        </h2>
+                        <div id="faq7" class="accordion-collapse collapse" aria-labelledby="faq7-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                My approach blends technical expertise with motivation and fun, helping students set their own goals and stay accountable.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq8-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
+                                What kind of cello or equipment do I need?
+                            </button>
+                        </h2>
+                        <div id="faq8" class="accordion-collapse collapse" aria-labelledby="faq8-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You’ll need a properly sized cello, bow, and rosin. If you’re unsure, I can recommend trusted local shops or rental services.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq9-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9" aria-expanded="false" aria-controls="faq9">
+                                What should I bring to my first lesson?
+                            </button>
+                        </h2>
+                        <div id="faq9" class="accordion-collapse collapse" aria-labelledby="faq9-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Bring your cello, bow, and any prior music or exercises. I’ll provide materials and help set your goals.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq10-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq10" aria-expanded="false" aria-controls="faq10">
+                                What age groups do you teach?
+                            </button>
+                        </h2>
+                        <div id="faq10" class="accordion-collapse collapse" aria-labelledby="faq10-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                My lessons are best suited for students ages 12 or 13 and up, including adults.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq11-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq11" aria-expanded="false" aria-controls="faq11">
+                                Can parents observe lessons?
+                            </button>
+                        </h2>
+                        <div id="faq11" class="accordion-collapse collapse" aria-labelledby="faq11-heading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Absolutely! Parents are welcome to observe, especially for younger students. Family support is key to successful practice.
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </section>
+</main>
+<footer class="bg-white py-4 mt-auto">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto"><div class="small m-0">Copyright &copy; Your Website 2023</div></div>
+            <div class="col-auto">
+                <a class="small" href="#!">Privacy</a>
+                <span class="mx-1">&middot;</span>
+                <a class="small" href="#!">Terms</a>
+                <span class="mx-1">&middot;</span>
+                <a class="small" href="#!">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
 </body>
 </html>
