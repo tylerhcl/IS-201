@@ -4,26 +4,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Cello Lessons with Tyler</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
-  <!-- Hide horizontal scroll -->
-  <style>html, body { overflow-x: hidden; }</style>
+  <!-- Profile decoration CSS -->
+  <style>
+    /* Profile decoration CSS */
+    .profile {
+      position: relative;
+      display: inline-block;
+      overflow: visible;
+    }
+    .profile-img {
+      display: block;
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+    }
+    /* Corner brackets */
+            /* Top-left subtle bracket */
+        /* Bottom-right blue bracket */
+    
+  </style>
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <style>
-    /* Carousel-specific styles */
+    /* Carousel-specific styles (unchanged) */
     .carousel-fluid {
       position: relative;
       background: linear-gradient(to right, #f8f9fa, #e9ecef);
       padding: 20px 0 60px;
-      width: 100vw;
-      left: 50%;
-      margin-left: -50vw;
-      overflow-x: hidden;
+      overflow: visible;
     }
     .carousel-fluid .swiper {
       overflow: visible;
@@ -48,7 +60,6 @@
     .carousel-fluid .swiper-slide img,
     .carousel-fluid .swiper-slide iframe {
       width: 100%;
-      height: auto;
       aspect-ratio: 16/9;
       border-radius: 8px;
     }
@@ -59,7 +70,7 @@
     }
     .carousel-fluid .swiper-pagination {
       position: absolute;
-      bottom: -25px; /* moved down slightly */
+      bottom: -25px;
       width: 100%;
       text-align: center;
       z-index: 10;
@@ -101,9 +112,7 @@
       <div class="row gx-5 align-items-center">
         <div class="col-xxl-5">
           <div class="text-center text-xxl-start">
-            <div class="badge bg-gradient-primary-to-secondary text-white mb-4">
-              <div class="text-uppercase">Passion · Determination · Soul</div>
-            </div>
+            <div class="badge bg-gradient-primary-to-secondary text-white mb-4"><div class="text-uppercase">Passion · Determination · Soul</div></div>
             <div class="fs-3 fw-light text-muted">Your next masterclass</div>
             <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Just Started.</span></h1>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
@@ -114,7 +123,7 @@
         </div>
         <div class="col-xxl-7">
           <div class="d-flex justify-content-center mt-5 mt-xxl-0">
-            <div class="profile bg-gradient-primary-to-secondary">
+            <div class="profile">
               <img class="profile-img" src="assets/profile.png" alt="..." />
             </div>
           </div>
@@ -159,13 +168,13 @@
 <footer class="bg-white py-4 mt-auto">
   <div class="container px-5">
     <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-      <div class="col-auto"><div class="small m-0">Copyright © 2023 Tyler Teaches</div></div>
+      <div class="col-auto"><div class="small m-0">© Tyler Teaches 2025</div></div>
       <div class="col-auto">
         <a class="small" href="#">Privacy</a>
         <span class="mx-1">·</span>
         <a class="small" href="#">Terms</a>
         <span class="mx-1">·</span>
-        <a class="small" href="#">Contact</a>
+        <a class="small" href="contact.html">Contact</a>
       </div>
     </div>
   </div>
@@ -192,11 +201,9 @@
       const id = slideEl.getAttribute('data-video-id');
       const idx = parseInt(slideEl.getAttribute('data-swiper-slide-index'), 10);
       if (idx === swiper.realIndex) {
-        slideEl.innerHTML =
-          '<iframe width="100%" src="https://www.youtube.com/embed/' + id + '" allowfullscreen></iframe>';
+        slideEl.innerHTML = '<iframe width="100%" src="https://www.youtube.com/embed/' + id + '" allowfullscreen></iframe>';
       } else {
-        slideEl.innerHTML =
-          '<img src="https://img.youtube.com/vi/' + id + '/hqdefault.jpg" alt="Thumbnail">';
+        slideEl.innerHTML = '<img src="https://img.youtube.com/vi/' + id + '/hqdefault.jpg" alt="Thumbnail">';
       }
     });
   }
@@ -207,16 +214,9 @@
     });
   }
 
-  swiper.on('init', function() {
-    renderSlides();
-    highlightDot();
-  });
-  swiper.on('slideChangeTransitionEnd', function() {
-    renderSlides();
-    highlightDot();
-  });
+  swiper.on('init', function() { renderSlides(); highlightDot(); });
+  swiper.on('slideChangeTransitionEnd', function() { renderSlides(); highlightDot(); });
 
-  // Use Swiper's click event with correct params
   swiper.on('click', function(swiper, event) {
     const clickedSlide = swiper.clickedSlide;
     if (clickedSlide) {
