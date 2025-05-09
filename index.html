@@ -4,15 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Cello Lessons with Tyler</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
-  <!-- Profile decoration CSS -->
+  <!-- Logo tint and profile decoration CSS -->
   <style>
-    /* Profile decoration CSS */
+    /* Tint navbar logo to primary blue */
+    .navbar-brand img {
+      filter: brightness(0) saturate(100%) invert(31%) sepia(92%) saturate(695%) hue-rotate(180deg) brightness(93%) contrast(103%);
+    }
+    /* Profile drop-shadow */
     .profile {
       position: relative;
       display: inline-block;
@@ -22,20 +26,28 @@
       display: block;
       filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
     }
-    /* Corner brackets */
-            /* Top-left subtle bracket */
-        /* Bottom-right blue bracket */
-    
+    /* Distinguish navbar from header and make it sticky */
+    .navbar {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    /* Reduce navbar left padding for a tighter align */
+    .navbar .container {
+      padding-left: 1rem !important;
+    }
   </style>
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <style>
-    /* Carousel-specific styles (unchanged) */
+    /* Carousel-specific styles */
     .carousel-fluid {
       position: relative;
       background: linear-gradient(to right, #f8f9fa, #e9ecef);
       padding: 20px 0 60px;
-      overflow: visible;
+      width: 100%;
+      overflow-x: hidden;
     }
     .carousel-fluid .swiper {
       overflow: visible;
@@ -91,15 +103,18 @@
   <!-- Navigation-->  
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container px-5">
-      <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Tyler Teaches</span></a>
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="assets/favicon.png" alt="Logo" width="35" height="35" class="me-2" />
+        <span class="fw-bolder text-primary">Tyler Teaches</span>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
           <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="resume.html">Resume</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -116,8 +131,8 @@
             <div class="fs-3 fw-light text-muted">Your next masterclass</div>
             <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Just Started.</span></h1>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-              <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="resume.html">Resume</a>
-              <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="programs.html">Programs</a>
+              <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="programs.html">Programs</a>
+              <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Contact</a>
             </div>
           </div>
         </div>
@@ -140,7 +155,7 @@
           <div class="text-center my-3">
             <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Me</span></h2>
             <p class="lead fw-light mb-4">My name is Tyler Call and I help you make strings sing.</p>
-            <p class="text-muted">Your dreams of mastering the cello are about to be realized. Through dedicated study and synergetic coaching, I will help you achieve a level of cello playing you didn't know was possible.</p>
+            <p class="text-muted">Your dreams of mastering the cello are about to be realized. Through dedicated study and synergetic coaching, I help you achieve a level of cello playing you didn't know was possible.</p>
           </div>
         </div>
       </div>
@@ -150,35 +165,52 @@
   <!-- Carousel Section Only -->
   <section class="carousel-fluid">
     <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" data-video-id="HxiY75ZKUE8"><img src="https://img.youtube.com/vi/HxiY75ZKUE8/hqdefault.jpg" alt="Performance"></div>
-        <div class="swiper-slide" data-video-id="3CaHJ3Ua02E"><img src="https://img.youtube.com/vi/3CaHJ3Ua02E/hqdefault.jpg" alt="Performance"></div>
-        <div class="swiper-slide" data-video-id="AiVWMtQyI-s"><img src="https://img.youtube.com/vi/AiVWMtQyI-s/hqdefault.jpg" alt="Duet"></div>
-        <div class="swiper-slide" data-video-id="zCjNAsqkOPI"><img src="https://img.youtube.com/vi/zCjNAsqkOPI/hqdefault.jpg" alt="Audition"></div>
-        <div class="swiper-slide" data-video-id="_iT9zGrUelA"><img src="https://img.youtube.com/vi/_iT9zGrUelA/hqdefault.jpg" alt="Test"></div>
-        <div class="swiper-slide" data-video-id="FA1tuzfb8Qs"><img src="https://img.youtube.com/vi/FA1tuzfb8Qs/hqdefault.jpg" alt="Audition2024"></div>
-      </div>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" data-video-id="-Y9Y0uP4yAs"><img src="https://img.youtube.com/vi/-Y9Y0uP4yAs/hqdefault.jpg" alt="Video"></div>
+        <div class="swiper-slide" data-video-id="owUDBl_TQbQ"><img src="https://img.youtube.com/vi/owUDBl_TQbQ/hqdefault.jpg" alt="Video"></div>
+        <div class="swiper-slide" data-video-id="HxiY75ZKUE8"><img src="https://img.youtube.com/vi/HxiY75ZKUE8/hqdefault.jpg" alt="Video"></div>
+        <div class="swiper-slide" data-video-id="iRXwnQKzxXQ"><img src="https://img.youtube.com/vi/iRXwnQKzxXQ/hqdefault.jpg" alt="Video"></div>
+        <div class="swiper-slide" data-video-id="FA1tuzfb8Qs"><img src="https://img.youtube.com/vi/FA1tuzfb8Qs/hqdefault.jpg" alt="Video"></div>
+        <div class="swiper-slide" data-video-id="zCjNAsqkOPI"><img src="https://img.youtube.com/vi/zCjNAsqkOPI/hqdefault.jpg" alt="Video"></div>
+        </div>
+          
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
       <div class="swiper-pagination"></div>
     </div>
   </section>
 
+  <!-- Call to Action Button Below Carousel -->
+  <div class="d-flex justify-content-center my-5">
+    <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder" href="programs.html">Explore Lesson Options</a>
+  </div>
+
 </main>
 <footer class="bg-white py-4 mt-auto">
-  <div class="container px-5">
-    <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-      <div class="col-auto"><div class="small m-0">© Tyler Teaches 2025</div></div>
-      <div class="col-auto">
-        <a class="small" href="#">Privacy</a>
-        <span class="mx-1">·</span>
-        <a class="small" href="#">Terms</a>
-        <span class="mx-1">·</span>
-        <a class="small" href="contact.html">Contact</a>
+    <div class="container px-5">
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="sms:?&body=Hey,%20here's%20the%20information%20for%20Tyler%20Call's%20summer%20lessons:%20https://tylerhcl.github.io/cellolessons/index.html" class="btn btn-outline-primary" title="Share via SMS">
+          <i class="bi bi-chat-dots fs-4"></i>
+        </a>
+        <a href="https://api.whatsapp.com/send?text=Hey,%20here's%20the%20information%20for%20Tyler%20Call's%20summer%20lessons:%20https://tylerhcl.github.io/cellolessons/index.html" class="btn btn-outline-success" title="Share via WhatsApp" target="_blank">
+          <i class="bi bi-whatsapp fs-4"></i>
+        </a>
+        <a href="https://www.instagram.com/" class="btn btn-outline-danger" title="Visit on Instagram" target="_blank">
+          <i class="bi bi-instagram fs-4"></i>
+        </a>
+      </div>
+      <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+        <div class="col-auto"><div class="small m-0">© Tyler Teaches 2025</div></div>
+        <div class="col-auto">
+          <a class="small" href="#">Privacy</a>
+          <span class="mx-1">·</span>
+          <a class="small" href="#">Terms</a>
+          <span class="mx-1">·</span>
+          <a class="small" href="contact.html">Contact</a>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/scripts.js"></script>
 <!-- Swiper JS -->
